@@ -45,6 +45,13 @@ class _MyAppState extends State<MyApp> {
       },
     ];
 
+    void resetQuiz(){
+      setState(() {
+        _questionIndex = 0;
+        _totalscore = 0;
+      });
+    }
+
   void _answerQuestion(int score){
     _totalscore = _totalscore+score;
     setState(() {
@@ -67,13 +74,15 @@ class _MyAppState extends State<MyApp> {
     // print(dummy);
     // dummy=[];
     // question = []; does not work if question is constant
-    return MaterialApp(home: Scaffold(
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
       appBar: AppBar(
         title: Text('My First App'),
       ),
       body: _questionIndex < _questions.length 
       ? Quiz(questions: _questions,answerQuestion: _answerQuestion,questionIndex: _questionIndex,) 
-      : Result(_totalscore),
+      : Result(_totalscore,resetQuiz),
     ),
     );
   }
